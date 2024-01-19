@@ -6,7 +6,6 @@ from taskiq.message import TaskiqMessage
 from taskiq.result import TaskiqResult
 from logging import getLogger
 
-# You might need to import additional Elastic APM specific modules
 from elasticapm import Client
 
 logger = getLogger("taskiq.elastic_apm")

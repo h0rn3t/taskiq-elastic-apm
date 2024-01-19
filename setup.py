@@ -13,7 +13,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'taskiq>=0.10.4',
-        'elasticapm>=6.20.0',
+        'elastic-apm>=6.20.0',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',

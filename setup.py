@@ -3,7 +3,7 @@ import re
 
 from setuptools import find_packages, setup
 
-with open(Path("fastapi_async_sqlalchemy") / "__init__.py", encoding="utf-8") as fh:
+with open(Path("taskiq_elastic_apm") / "__init__.py", encoding="utf-8") as fh:
     version = re.search(r'__version__ = "(.*?)"', fh.read(), re.M).group(1)  # type: ignore
 
 

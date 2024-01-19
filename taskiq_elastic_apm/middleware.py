@@ -50,7 +50,7 @@ class ElasticApmMiddleware(TaskiqMiddleware):
         :param message: current message.
         :return: message
         """
-        self.client.begin_transaction("taskiq")
+        self.client.begin_transaction(transaction_type="taskiq")
         return message
 
     def post_execute(
@@ -68,7 +68,9 @@ class ElasticApmMiddleware(TaskiqMiddleware):
         """
         if result.is_err:
             self.client.capture_exception()
-        self.client.end_transaction(message.task_name, result.status)
+            self.client.end_transaction(name=message.task_name, result="error")
+
+        self.client.end_transaction(name=message.task_name, result="success")
 
     def post_save(
         self,

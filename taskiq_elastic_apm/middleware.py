@@ -1,5 +1,5 @@
 from logging import getLogger
-from typing import Any, Optional
+from typing import Any
 
 from elasticapm import Client
 from taskiq.abc.middleware import TaskiqMiddleware
@@ -24,22 +24,10 @@ class ElasticApmMiddleware(TaskiqMiddleware):
 
     def __init__(
         self,
-        server_url: str,
-        service_name: str,
-        environment: str = "production",
-        config: Optional[dict] = None,
+        client: Client,
     ) -> None:
         super().__init__()
-
-        self.client = Client(
-            {
-                "SERVICE_NAME": service_name,
-                "SERVER_URL": server_url,
-                "ENVIRONMENT": environment,
-                **(config or {}),
-            }
-        )
-
+        self.client = client
         logger.debug("Elastic APM client initialized")
 
     def startup(self) -> None:
@@ -62,7 +50,7 @@ class ElasticApmMiddleware(TaskiqMiddleware):
         :param message: current message.
         :return: message
         """
-        self.client.begin_transaction("task")
+        self.client.begin_transaction("taskiq")
         return message
 
     def post_execute(
@@ -96,3 +84,4 @@ class ElasticApmMiddleware(TaskiqMiddleware):
         :param result: result of execution.
         """
         # Implement any post-save logic if necessary
+

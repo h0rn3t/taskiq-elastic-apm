@@ -13,7 +13,7 @@ TaskIQ Elastic APM Middleware is a Python library providing easy integration of 
 You can install the TaskIQ Elastic APM Middleware directly from PyPI:
 
 ```bash
-pip install taskiq-elastic-apm-middleware
+pip install taskiq-elastic-apm
 ```
 
 Usage

@@ -26,16 +26,17 @@ from taskiq_elastic_apm_middleware import ElasticApmMiddleware
 
 # Create your Taskiq instance
 ``` python
-app = Taskiq()
 
-# Configure and add the Elastic APM middleware
-app.add_middleware(ElasticApmMiddleware, server_url="http://apm-server:8200", service_name="your_service")
+middleware = ElasticApmMiddleware(server_url="http://apm-server:8200", service_name="your_service")
+middleware.set_broker(broker)
+
 ```
 
 # Define your tasks and start your application as usual
 Configuration
 
-You can configure the middleware by passing parameters to ElasticApmMiddleware. The main parameters are:
+You can configure the middleware by passing parameters to ElasticApmMiddleware.
+The main parameters are:
 
 **server_url**: The URL of your Elastic APM server.
 

@@ -1,12 +1,10 @@
-import os
-from typing import Optional, Any
+from logging import getLogger
+from typing import Any, Optional
 
+from elasticapm import Client
 from taskiq.abc.middleware import TaskiqMiddleware
 from taskiq.message import TaskiqMessage
 from taskiq.result import TaskiqResult
-from logging import getLogger
-
-from elasticapm import Client
 
 logger = getLogger("taskiq.elastic_apm")
 
@@ -29,16 +27,18 @@ class ElasticApmMiddleware(TaskiqMiddleware):
         server_url: str,
         service_name: str,
         environment: str = "production",
-        config: Optional[dict] = None
+        config: Optional[dict] = None,
     ) -> None:
         super().__init__()
 
-        self.client = Client({
-            'SERVICE_NAME': service_name,
-            'SERVER_URL': server_url,
-            'ENVIRONMENT': environment,
-            **(config or {})
-        })
+        self.client = Client(
+            {
+                "SERVICE_NAME": service_name,
+                "SERVER_URL": server_url,
+                "ENVIRONMENT": environment,
+                **(config or {}),
+            }
+        )
 
         logger.debug("Elastic APM client initialized")
 
@@ -49,7 +49,6 @@ class ElasticApmMiddleware(TaskiqMiddleware):
         This function initializes any required resources for Elastic APM.
         """
         # Initialize resources or perform startup routines for Elastic APM
-        pass
 
     def pre_execute(
         self,
@@ -97,4 +96,3 @@ class ElasticApmMiddleware(TaskiqMiddleware):
         :param result: result of execution.
         """
         # Implement any post-save logic if necessary
-        pass

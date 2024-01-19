@@ -1,8 +1,14 @@
+from pathlib import Path
+
 from setuptools import setup, find_packages
+
+with open(Path("fastapi_async_sqlalchemy") / "__init__.py", encoding="utf-8") as fh:
+    version = re.search(r'__version__ = "(.*?)"', fh.read(), re.M).group(1)  # type: ignore
+
 
 setup(
     name='taskiq-elastic-apm',
-    version='0.1.0',
+    version=version,
     license="MIT",
     author="Eugene Shershen",
     author_email='h0rn3t.null@gmail.com',

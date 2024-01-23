@@ -13,7 +13,7 @@ TaskIQ Elastic APM Middleware is a Python library providing easy integration of 
 You can install the TaskIQ Elastic APM Middleware directly from PyPI:
 
 ```bash
-pip install taskiq-elastic-apm-middleware
+pip install taskiq-elastic-apm
 ```
 
 Usage
@@ -27,8 +27,16 @@ from taskiq_elastic_apm_middleware import ElasticApmMiddleware
 # Create your Taskiq instance
 ``` python
 
-middleware = ElasticApmMiddleware(server_url="http://apm-server:8200", service_name="your_service")
-middleware.set_broker(broker)
+broker = AioPikaBroker(
+    url=settings.CELERY_BROKER_URL,
+    queue_name=settings.CELERY_DEFAULT_QUEUE,
+    exchange_name=settings.CELERY_DEFAULT_QUEUE,
+).with_middlewares(
+    ElasticApmMiddleware(
+        client=apm,
+    )
+)
+
 
 ```
 

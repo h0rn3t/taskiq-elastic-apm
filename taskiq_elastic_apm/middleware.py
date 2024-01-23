@@ -1,7 +1,7 @@
 from logging import getLogger
 from typing import Any
 
-from elasticapm import Client
+import elasticapm
 from taskiq.abc.middleware import TaskiqMiddleware
 from taskiq.message import TaskiqMessage
 from taskiq.result import TaskiqResult
@@ -24,10 +24,11 @@ class ElasticApmMiddleware(TaskiqMiddleware):
 
     def __init__(
         self,
-        client: Client,
+        client: elasticapm.Client,
     ) -> None:
         super().__init__()
         self.client = client
+        elasticapm.instrument()
         logger.debug("Elastic APM client initialized")
 
     def startup(self) -> None:
@@ -36,7 +37,7 @@ class ElasticApmMiddleware(TaskiqMiddleware):
 
         This function initializes any required resources for Elastic APM.
         """
-        # Initialize resources or perform startup routines for Elastic APM
+        ...
 
     def pre_execute(
         self,

@@ -41,15 +41,10 @@ broker = AioPikaBroker(
 ```
 
 # Define your tasks and start your application as usual
-Configuration
+### Configuration
 
 You can configure the middleware by passing parameters to ElasticApmMiddleware.
+
 The main parameters are:
 
-**server_url**: The URL of your Elastic APM server.
-
-**service_name**: The name of your service as registered in Elastic APM.
-
-**environment**: (Optional) The deployment environment, e.g., 'production', 'development'.
-
-**config**: (Optional) A dictionary with additional configuration options for the Elastic APM client.
+**client**: elasticapm.Client - The Elastic APM client instance to use. If not provided, a new client will be created using the following parameters.

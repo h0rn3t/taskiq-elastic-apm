@@ -1,3 +1,8 @@
+[![ci](https://img.shields.io/badge/Support-Ukraine-FFD500?style=flat&labelColor=005BBB)](https://img.shields.io/badge/Support-Ukraine-FFD500?style=flat&labelColor=005BBB)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![pip](https://img.shields.io/pypi/v/taskiq-elastic-apm?color=blue)](https://pypi.org/project/taskiq-elastic-apm/)
+[![Downloads](https://static.pepy.tech/badge/taskiq-elastic-apm)](https://pepy.tech/project/taskiq-elastic-apm)
+
 # TaskIQ Elastic APM Middleware
 
 TaskIQ Elastic APM Middleware is a Python library providing easy integration of Elastic APM monitoring into TaskIQ task processing. This middleware enables efficient tracking and analysis of task performance and errors, leveraging the capabilities of Elastic APM.

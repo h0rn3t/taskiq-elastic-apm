@@ -32,6 +32,7 @@ from taskiq_elastic_apm_middleware import ElasticApmMiddleware
 # Create your Taskiq instance
 ``` python
 
+
 broker = AioPikaBroker(
     url=settings.CELERY_BROKER_URL,
     queue_name=settings.CELERY_DEFAULT_QUEUE,
@@ -52,4 +53,21 @@ You can configure the middleware by passing parameters to ElasticApmMiddleware.
 
 The main parameters are:
 
-**client**: elasticapm.Client - The Elastic APM client instance to use. If not provided, a new client will be created using the following parameters.
+**client**: elasticapm.Client - The Elastic APM client instance to use. If not provided, a new client will be created using the following parameters:
+``` python
+from elasticapm.contrib.starlette import make_apm_client
+
+apm_settings = {
+    "ENABLED": settings.APM_ENABLE,
+    "ENVIRONMENT": settings.ENVIRONMENT,
+    "SERVER_URL": settings.APM_SERVER_URL,
+    "SERVICE_NAME": settings.SERVICE_NAME,
+    "SECRET_TOKEN": settings.APM_SECRET_TOKEN,
+    "CAPTURE_BODY": settings.APM_CAPTURE_BODY,
+    "CAPTURE_HEADERS": settings.APM_CAPTURE_HEADERS,
+    "COLLECT_LOCAL_VARIABLES": settings.APM_COLLECT_LOCAL_VARIABLES,
+    "AUTO_LOG_STACKS": settings.APM_AUTO_LOG_STACKS,
+}
+
+apm = make_apm_client(apm_settings)
+```

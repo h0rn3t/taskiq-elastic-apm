@@ -51,13 +51,16 @@ class ElasticApmMiddleware(TaskiqMiddleware):
         :param message: current message.
         :return: message
         """
-        self.client.begin_transaction(transaction_type="taskiq")
+        try:
+            self.client.begin_transaction(transaction_type="taskiq")
+        except Exception as e:
+            logger.error(f"Failed to begin transaction with APM server: {e}")
         return message
 
     def post_execute(
         self,
-        message: "TaskiqMessage",
-        result: "TaskiqResult[Any]",
+        message: TaskiqMessage,
+        result: TaskiqResult[Any],
     ) -> None:
         """
         Function to capture task execution details.
@@ -67,11 +70,14 @@ class ElasticApmMiddleware(TaskiqMiddleware):
         :param message: received message.
         :param result: result of the execution.
         """
-        if result.is_err:
-            self.client.capture_exception()
-            self.client.end_transaction(name=message.task_name, result="error")
-
-        self.client.end_transaction(name=message.task_name, result="success")
+        try:
+            if result.is_err:
+                self.client.capture_exception()
+                self.client.end_transaction(name=message.task_name, result="error")
+            else:
+                self.client.end_transaction(name=message.task_name, result="success")
+        except Exception as e:
+            logger.error(f"Failed to send data to APM server: {e}")
 
     def post_save(
         self,
